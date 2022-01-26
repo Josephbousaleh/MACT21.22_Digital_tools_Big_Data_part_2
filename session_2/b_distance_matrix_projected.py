@@ -33,25 +33,15 @@ open_sense_measures = open_sense_measures.groupby(['lat','lon', 'boxName', 'unit
 
 # Setting up the geodataframes
 crs = {'init': 'epsg:4326'}
+crs_bcn = {'init': 'epsg:25831'}
 geometry = [Point(xy) for xy in zip(bcn_stations["LONGITUD"], bcn_stations["LATITUD"])]
 bcn_stations_geo = geopandas.GeoDataFrame(bcn_stations, crs=crs, geometry=geometry)
+bcn_stations_geo = bcn_stations_geo.to_crs(crs_bcn)
 geometry = [Point(xy) for xy in zip(open_sense_measures["lon"], open_sense_measures["lat"])]
 open_sense_geo = geopandas.GeoDataFrame(open_sense_measures, crs=crs, geometry=geometry)
+open_sense_geo = open_sense_geo.to_crs(crs_bcn)
 
-# we can calculate the distrance between a dataframe and a reference point
-reference = Point(2.05, 41.38)
-distance = open_sense_geo.distance(reference)
 
-# task: change the points and get to the distance
-p1 = open_sense_geo.iloc[[0]]
-distance_1 = p1.distance(reference)
-print(distance_1)
-p2 = open_sense_geo.iloc[[1]]
-distance_2 = p2.distance(reference)
-print(distance_2)
-
-# Task: Calculate distance across all points in the two dataframes
+# Task: We can see the distance in projection units (metres)
 open_sense_geo.geometry.apply(lambda g: bcn_stations_geo.distance(g))
-
-# Comment in Class, this option give us an error due to the indexes
-# distance = open_sense_geo.distance(bcn_stations_geo, alingn=False)
+print(open_sense_geo)
