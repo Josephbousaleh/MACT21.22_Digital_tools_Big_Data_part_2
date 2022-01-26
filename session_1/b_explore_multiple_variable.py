@@ -31,12 +31,10 @@ import matplotlib.animation as animation
 import seaborn as sns
 import pandas as pd
 import matplotlib
+
 plt.style.use('seaborn-pastel')
 
-
-
-
-# Data BCN API: Mesurements of the meteorological stations of the city of Barcelona
+# Data BCN API: Measurements of the meteorological stations of the city of Barcelona
 # Source: https://opendata-ajuntament.barcelona.cat/data/en/dataset/mesures-estacions-meteorologiques
 url = 'https://opendata-ajuntament.barcelona.cat/data/dataset/cf1de5ca-9d1c-424c-9543-8ab23e7f478e/resource/0b96a191-463e-43ce-bb3a-67e61a96f466/download'
 bcn_stations = pd.read_csv(url)
@@ -53,8 +51,7 @@ bcn_mean_temperature['DATE'] = pd.to_datetime(bcn_mean_temperature['DATA_LECTURA
 
 # Scatter plot
 sns.scatterplot(data=bcn_mean_temperature, x="DATE", y="VALOR")
-plt.show()
-# Task
+plt.show ()# Task
 # Customise plots based on seaborn documentation
 # https://seaborn.pydata.org/generated/seaborn.scatterplot.html
-# Add extra values and comparte with additional variables
+# Add extra values and compare with additional variables
